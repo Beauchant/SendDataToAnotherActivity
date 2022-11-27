@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -27,12 +28,17 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(MainActivity.this, Receiver.class);
-                String name = txtName.getText().toString();
-                int age = Integer.parseInt(txtAge.getText().toString().trim());
 
-                i.putExtra("NAME", name);
-                i.putExtra("AGE", age);
-                startActivity(i);
+                if(txtName.getText().toString().isEmpty() || txtAge.getText().toString().isEmpty()){
+                    Toast.makeText(MainActivity.this, "Please enter name and age!", Toast.LENGTH_SHORT).show();
+                }else {
+                    String name = txtName.getText().toString();
+                    int age = Integer.parseInt(txtAge.getText().toString().trim());
+
+                    i.putExtra("NAME", name);
+                    i.putExtra("AGE", age);
+                    startActivity(i);
+                }
             }
         });
     }
